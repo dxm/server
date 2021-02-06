@@ -1,0 +1,9 @@
+---
+nagios_packages:
+- nagios-plugins-disk
+- nagios-plugins-load
+- nagios-plugins-procs
+- nagios-plugins-swap
+- nagios-plugins-time
+- nagios-plugins-uptime
+- nagios-plugins-users

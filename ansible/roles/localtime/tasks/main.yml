@@ -1,0 +1,9 @@
+---
+- name: set local time
+  file:
+    dest: /etc/localtime
+    state: link
+    force: yes
+    src: /usr/share/zoneinfo/{{ localtime }}
+  tags:
+  - localtime

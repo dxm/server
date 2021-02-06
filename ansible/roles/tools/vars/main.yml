@@ -1,0 +1,21 @@
+---
+tools_packages:
+- bind-utils
+- curl
+- mailx
+- man
+- man-pages
+- nc
+- openssh-clients
+- parted
+- procps
+- pwgen
+- rsync
+- sysstat
+- tcpdump
+- tmux
+- tree
+- unzip
+- vim
+- wget
+- zip

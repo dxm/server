@@ -1,0 +1,7 @@
+---
+- name: install packages
+  yum:
+    name: "{{ tools_packages }}"
+    state: present
+  tags:
+  - tools

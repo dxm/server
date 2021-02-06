@@ -1,0 +1,28 @@
+---
+- name: install packages
+  package:
+    name: ntp
+    state: present
+  tags:
+  - ntp
+
+- name: update conf file
+  template:
+    dest: /etc/ntp.conf
+    owner: root
+    group: ntp
+    mode: 0640
+    src: ntp.conf
+    backup: yes
+  notify:
+  - restart ntp
+  tags:
+  - ntp
+
+- name: enable and start service
+  service:
+    name: ntpd
+    enabled: yes
+    state: started
+  tags:
+  - ntp

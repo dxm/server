@@ -1,0 +1,4 @@
+---
+motd: |
+  Welcome to {{ ansible_hostname }}.
+  Last update by Ansible was {{ ansible_date_time.date }} {{ ansible_date_time.time }}.

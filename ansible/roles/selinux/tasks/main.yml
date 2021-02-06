@@ -1,0 +1,13 @@
+---
+- name: install required packages for ansible
+  yum:
+    name: libselinux-python
+    state: present
+  tags:
+  - selinux
+
+- name: ensure selinux is enabled
+  selinux:
+    state: enabled
+  tags:
+  - selinux

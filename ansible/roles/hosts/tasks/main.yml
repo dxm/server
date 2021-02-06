@@ -1,0 +1,25 @@
+---
+- set_fact:
+    ansible_hostname: '{{ inventory_hostname_short }}'
+    ansible_fqdn: '{{ inventory_hostname }}'
+    ansible_domain: "{{ inventory_hostname[(inventory_hostname_short + '.') | length:] }}"
+  changed_when: false
+  tags:
+  - hosts
+
+- name: set hostname
+  hostname:
+    name: '{{ inventory_hostname_short }}'
+  tags:
+  - hosts
+
+- name: update /etc/hosts
+  template:
+    dest: /etc/hosts
+    owner: root
+    group: root
+    mode: 0644
+    src: hosts
+    backup: yes
+  tags:
+  - hosts

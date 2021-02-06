@@ -1,0 +1,27 @@
+- name: install packages
+  package:
+    name: postfix
+    state: present
+  tags:
+  - postfix
+
+- name: update conf file
+  template:
+    dest: /etc/postfix/main.cf
+    owner: root
+    group: root
+    mode: 0644
+    src: main.cf
+    backup: yes
+  notify:
+  - restart postfix
+  tags:
+  - postfix
+
+- name: enable and start service
+  service:
+    name: postfix
+    enabled: yes
+    state: started
+  tags:
+  - postfix

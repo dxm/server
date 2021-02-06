@@ -1,0 +1,16 @@
+myhostname = {{ ansible_fqdn }}
+myorigin = $myhostname
+smtpd_banner = $myhostname ESMTP $mail_name
+inet_interfaces = loopback-only
+mydestination = $myhostname, localhost.$mydomain, localhost
+mynetworks = 127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128
+mailbox_size_limit = 0
+message_size_limit = 20971520
+recipient_delimiter = +
+alias_maps = hash:/etc/aliases
+alias_database = hash:/etc/aliases
+disable_vrfy_command = yes
+smtpd_helo_required = yes
+{% if  postfix_relayhost is defined %}
+relayhost = {{ postfix_relayhost }}
+{% endif %}

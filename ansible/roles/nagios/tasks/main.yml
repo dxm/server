@@ -1,0 +1,25 @@
+---
+- name: install packages
+  yum:
+    name: '{{ nagios_packages }}'
+    state: present
+  with_items:
+  tags:
+  - nagios
+
+- name: add nagios account
+  user:
+    name: nagios
+    create_home: yes
+  when: nagios_use_ssh | bool
+  tags:
+  - nagios
+
+- name: deploy nagios ssh key
+  authorized_key:
+    user: nagios
+    state: present
+    key: '{{ nagios_authorized_key }}'
+  when: nagios_use_ssh | bool and nagios_authorized_key is defined
+  tags:
+  - nagios

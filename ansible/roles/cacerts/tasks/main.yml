@@ -1,0 +1,31 @@
+---
+- name: check ca-trust status
+  command:  update-ca-trust check
+  register: check
+  changed_when: false
+  tags:
+  - cacerts
+
+- name: enable ca-trust
+  command: update-ca-trust enable
+  when: check.stdout is search('DISABLED')
+  tags:
+  - cacerts
+
+- name: deploy certs
+  copy:
+    content: '{{ item.pem }}'
+    dest: /etc/pki/ca-trust/source/anchors/{{ item.name }}.pem
+    owner: root
+    group: root
+    mode: 0644
+  with_items: '{{ cacerts }}'
+  register: copies
+  tags:
+  - cacerts
+
+- name: generate system bundles
+  command: update-ca-trust extract
+  when: copies is changed
+  tags:
+  - cacerts

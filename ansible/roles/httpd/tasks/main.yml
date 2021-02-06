@@ -1,0 +1,20 @@
+- name: update httpd.conf
+  template:
+    dest: /etc/httpd/conf/httpd.conf
+    owner: root
+    group: root
+    mode: 0644
+    src: httpd.conf
+    backup: yes
+  notify:
+  - restart httpd
+  tags:
+  - httpd
+
+- name: enable and start service
+  service:
+    name: httpd
+    enabled: yes
+    state: started
+  tags:
+  - httpd

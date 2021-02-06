@@ -1,0 +1,26 @@
+---
+- name: disable root access
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: "^PermitRootLogin"
+    line: "PermitRootLogin no"
+    state: present 
+    validate: 'sshd -t -f %s'
+    backup: yes
+  notify:
+  - restart sshd
+  tags:
+  - sshd
+
+- name: disable dns lookups
+  lineinfile: 
+    dest: /etc/ssh/sshd_config
+    regexp: "^UseDNS"
+    line: "UseDNS no"
+    state: present
+    validate: 'sshd -t -f %s'
+    backup: yes
+  notify:
+  - restart sshd
+  tags:
+  - sshd
